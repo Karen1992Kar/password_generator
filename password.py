@@ -1,27 +1,51 @@
 #!/usr/bin/env python3
 
-import random
-import string
-
 """
 Մոդուլը
 """
 
-for i in rand:
-    print(i)
+import random
+import string
 
 
+def random_simbol_string(st):
+    """Ֆունկցիան ստանում է տող, հետ է վերադարձնում այդ տողի խառը տասավորված
+    տեսակը"""
 
-def password(argument):
-    """pass"""
-    password = ""
+    res = ""
+    indexes = []
+
+    while len(res) < len(st):
+        index = random.randint(0, len(st)-1)
+        if index not in indexes:
+            res += st[index]
+            indexes.append(index)
+
+    return(res)
+
+
+def password(length):
+    """ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գախտանբառ,որի
+    երկարությունը համապատասխանում է  այդ թվի չափին"""
 
     punctuation = string.punctuation
-    string = string.ascii_letters
+    alpha = string.ascii_letters
 
-    rand = {random.randint(0,10), random.choice(string[:26]),
-            random.choice(string[26:]), random.choice(punctuation)}
-    for i in range(argument):
-        password += 1
+    result_rand_str1 = ''.join(random.choice(alpha[:26]) for i in
+                               range(length-length//4-1))
+    result_rand_str2 = ''.join(random.choice(alpha[26:]) for i in
+                               range(length//4+1))
+    result_rand_int = ''.join(str(random.randint(0,9)) for i in
+                              range(length//4))
+    result_rand_punt =''.join(random.choice(punctuation) for i in
+                              range(length//4))
+
+    result = result_rand_str1 + result_rand_str2 + result_rand_int +\
+             result_rand_punt
+
+    return random_simbol_string(result)
+
+
+print(password(6))
 
 
