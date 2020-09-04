@@ -17,7 +17,11 @@ def parse_input_argument():
 
     return parser.argument
 
+def check_the_size_number(number):
+    "ֆունկցիան ստուգում է իրեն փոխանցած արժեքի 7 ից մեծ լինելը"
 
+    if number < 8:
+        raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի 7 ից")
 
 def check_natural_number(argument):
     """Ֆունկցիան ստուգում է արգումենտի բնական թիվ լինելը."""
@@ -33,14 +37,15 @@ def password(length):
     երկարությունը համապատասխանում է  այդ թվի չափին"""
 
     check_natural_number(length)
+    check_the_size_number(length)
 
     punctuation = string.punctuation
     alpha = string.ascii_letters
 
     result_rand_str1 = ''.join(random.choice(alpha[:26]) for i in
-                               range(length-length//4-1))
+                               range(length-3*int(length//4)))
     result_rand_str2 = ''.join(random.choice(alpha[26:]) for i in
-                               range(length//4+1))
+                               range(length//4))
     result_rand_int = ''.join(str(random.randint(0,9)) for i in
                               range(length//4))
     result_rand_punt =''.join(random.choice(punctuation) for i in
