@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
 """
-Մոդուլը
+Հրամանը ստանում է 1 բնական թիվ, հետ է վերադարձնում այդ թվի չափին համապատասխանող
+երկարության գախտնաբառ
 """
 
-import random, argparse, string
+import random
+import argparse
+import string
 
 
 def parse_input_argument():
@@ -17,11 +20,13 @@ def parse_input_argument():
 
     return parser.argument
 
+
 def check_the_size_number(number):
     "ֆունկցիան ստուգում է իրեն փոխանցած արժեքի 7 ից մեծ լինելը"
 
     if number < 8:
         raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի 7 ից")
+
 
 def check_natural_number(argument):
     """Ֆունկցիան ստուգում է արգումենտի բնական թիվ լինելը."""
@@ -53,11 +58,10 @@ def password(length):
 
     result = result_rand_str1 + result_rand_str2 + result_rand_int +\
              result_rand_punt
+
     return ''.join(random.sample(result,len(result)))
 
 
 if __name__ == "__main__":
-    number = parse_input_argument()
-    print(password(number))
-
-
+    num = parse_input_argument()
+    print(password(num))
