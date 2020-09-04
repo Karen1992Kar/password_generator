@@ -19,22 +19,6 @@ def parse_input_argument():
 
 
 
-def random_simbol_string(st):
-    """Ֆունկցիան ստանում է տող, հետ է վերադարձնում այդ տողի սիմվոլների
-    խառը տասավորված տեսակը"""
-
-    res = ""
-    indexes = []
-
-    while len(res) < len(st):
-        index = random.randint(0, len(st)-1)
-        if index not in indexes:
-            res += st[index]
-            indexes.append(index)
-
-    return(res)
-
-
 def check_natural_number(argument):
     """Ֆունկցիան ստուգում է արգումենտի բնական թիվ լինելը."""
 
@@ -64,8 +48,7 @@ def password(length):
 
     result = result_rand_str1 + result_rand_str2 + result_rand_int +\
              result_rand_punt
-
-    return random_simbol_string(result)
+    return ''.join(random.sample(result,len(result)))
 
 
 if __name__ == "__main__":
