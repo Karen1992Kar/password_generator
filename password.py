@@ -24,9 +24,20 @@ def random_simbol_string(st):
     return(res)
 
 
+def check_natural_number(argument):
+    """Ֆունկցիան ստուգում է արգումենտի բնական թիվ լինելը."""
+
+    if not isinstance(argument, int) or isinstance(argument, bool) or \
+        argument < 1:
+        raise TypeError("Ֆունկցիան աշխատում է բնական թվի համար. "
+                        "'{}'-ը չի համարվում բնական թիվ".format(argument))
+
+
 def password(length):
     """ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գախտանբառ,որի
     երկարությունը համապատասխանում է  այդ թվի չափին"""
+
+    check_natural_number(length)
 
     punctuation = string.punctuation
     alpha = string.ascii_letters
