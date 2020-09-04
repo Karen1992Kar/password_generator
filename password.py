@@ -4,13 +4,24 @@
 Մոդուլը
 """
 
-import random
-import string
+import random, argparse, string
+
+
+def parse_input_argument():
+    """Ֆունկցիան ստուգում է հրամանին ուղարկված արգումենտները"""
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('argument', type=int,
+                        help="բնական թիվ")
+    parser = parser.parse_args()
+
+    return parser.argument
+
 
 
 def random_simbol_string(st):
-    """Ֆունկցիան ստանում է տող, հետ է վերադարձնում այդ տողի խառը տասավորված
-    տեսակը"""
+    """Ֆունկցիան ստանում է տող, հետ է վերադարձնում այդ տողի սիմվոլների
+    խառը տասավորված տեսակը"""
 
     res = ""
     indexes = []
@@ -57,6 +68,8 @@ def password(length):
     return random_simbol_string(result)
 
 
-print(password(6))
+if __name__ == "__main__":
+    number = parse_input_argument()
+    print(password(number))
 
 
