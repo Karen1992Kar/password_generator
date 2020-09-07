@@ -52,7 +52,7 @@ def test_str_in_password(len_password):
         "բարունակում".format(ints)
 
 
-@pytest.mark.parametrize("argument", ["string", "16"])
+@pytest.mark.parametrize("argument", ["string", "16", 7.3, True])
 def test_for_string_argument(argument):
     """Ֆունկցիան ստուգում է password մոդուլի աշխատանքը ոչ
     բնական թվերի դեպքում"""
@@ -64,13 +64,17 @@ def test_for_string_argument(argument):
                "'{}'-ը չի համարվում բնական թիվ".format(argument)
     else:
         pytest.fail("ֆունկցիան պետք է կանչեր TypeError <<{}>> արգումենտի "
+                    "համար, քանի որ այն աշխատում է 7 ից մեծ բնական թվերի "
                     "համար".format(argument))
 
 
-def test_for_len_arguments():
-    
+@pytest.mark.parametrize("number", [15, 45, 59])
+def test_for_len_arguments(number):
+    """Ֆունկցիան ստուգում է password_generator մոդուլին փոխանցած թվի և հետ
+    վերադարձրած գաղտնաբառի երկարության հավասար լինելը"""
 
-
+    assert len(password_generator(number)) == number, "ֆունկցիաին փոխանցած "\
+           "թիվը պետք է հավասար լիներ գաղտնաբառի երկարությանը"
 
 
 
