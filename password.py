@@ -47,6 +47,8 @@ def password(length):
     punctuation = string.punctuation
     alpha = string.ascii_letters
 
+    # TODO: the algorithm needs to be improved. Currently upper case, integers
+    # and punctuations max size is predictable.
     result_rand_str2 = ''.join(random.choice(alpha[26:]) for i in
                               range(random.randint(1, length//4+1)))
     result_rand_int = ''.join(str(random.randint(0,9)) for i in
