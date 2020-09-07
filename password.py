@@ -47,14 +47,15 @@ def password(length):
     punctuation = string.punctuation
     alpha = string.ascii_letters
 
-    result_rand_str1 = ''.join(random.choice(alpha[:26]) for i in
-                               range(length-3*int(length//4)))
     result_rand_str2 = ''.join(random.choice(alpha[26:]) for i in
-                               range(length//4))
+                              range(random.randint(1, length//4+1)))
     result_rand_int = ''.join(str(random.randint(0,9)) for i in
-                              range(length//4))
+                              range(random.randint(1, length//4+1)))
     result_rand_punt =''.join(random.choice(punctuation) for i in
-                              range(length//4))
+                              range(random.randint(1, length//4+1)))
+    result_rand_str1 = ''.join(random.choice(alpha[:26]) for i in
+                              range(length-len(result_rand_punt +
+                                    result_rand_str2 + result_rand_int)))
 
     result = result_rand_str1 + result_rand_str2 + result_rand_int +\
              result_rand_punt
