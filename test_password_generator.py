@@ -1,13 +1,12 @@
 #!/usr/bin/env pytest
 
 """
-sssss
+Մոդուլը թեստավորում է password_generator մոդուլը
 """
 
-import random
 import string
 import pytest
-from password_generator import password_generator
+from password_generator import generator_password
 
 # TODO: use string module's property/functions
 LOWERS = string.ascii_lowercase
@@ -21,7 +20,7 @@ def test_argument_greater_than_seven(num):
     """ֆունկցիան ստուգում է password մոդուլը 8 ից փոքր բնական թվերի համար"""
 
     try:
-        password_generator(num)
+        generator_password(num)
     except ValueError as desc_name:
         assert str(desc_name) == "ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի 7 ից"
     else:
@@ -34,7 +33,7 @@ def test_str_in_password(len_password):
     """Ֆունկցիան ստուգում է գախտնաբառի մեջ հատուկ սիմվոլների, թվերի, " \
     մեծատառերի, և փոքրատառերի առկայուտյունը """
 
-    password = password_generator(len_password)
+    password = generator_password(len_password)
 
     assert set(password).intersection(LOWERS), "գաղտնաբառը "\
         "պետք է բարունակեր {} սիմվոլներից մեկը, բայց չի " \
@@ -59,7 +58,7 @@ def test_for_string_argument(argument):
     բնական թվերի դեպքում"""
 
     try:
-        password_generator(argument)
+        generator_password(argument)
     except TypeError as desc_name:
         assert str(desc_name) == "Ֆունկցիան աշխատում է բնական թվի համար. "\
                "'{}'-ը չի համարվում բնական թիվ".format(argument)
@@ -74,5 +73,5 @@ def test_for_len_arguments(number):
     """Ֆունկցիան ստուգում է password_generator մոդուլին փոխանցած թվի և հետ
     վերադարձրած գաղտնաբառի երկարության հավասար լինելը"""
 
-    assert len(password_generator(number)) == number, "ֆունկցիաին փոխանցած "\
+    assert len(generator_password(number)) == number, "ֆունկցիաին փոխանցած "\
            "թիվը պետք է հավասար լիներ գաղտնաբառի երկարությանը"
