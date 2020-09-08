@@ -17,8 +17,8 @@ INTS = string.digits
 
 
 def generator_random_simbols(total):
-    """Ֆունկցիան վերադարձնում է quantity բնական թվի երկարության ցուցակ,
-    որի անդամները պատահական թվեր են, և այդ թվերի գումարը հավասար է total ի"""
+    """ֆունկցիան վերցնում է բնական թիվ և այդ թվին համապատասխան երկարության հետ
+    վերադարձնում random սիմվոլներ"""
 
     all_types = [PUNCTUATION, LOWERS, UPPERS, INTS]
 
