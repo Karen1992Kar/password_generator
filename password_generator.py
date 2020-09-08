@@ -22,7 +22,7 @@ def generator_random_simbols(total):
 
     all_types = [PUNCTUATION, LOWERS, UPPERS, INTS]
 
-    rand_simbols = [random.choice(PUNCTUATION), random.choice(LOWERS),\
+    rand_simbols = [random.choice(PUNCTUATION), random.choice(LOWERS),
            random.choice(UPPERS), random.choice(INTS)]
 
     for _ in range(total - 4):
@@ -32,6 +32,7 @@ def generator_random_simbols(total):
     return rand_simbols
 
 
+#TODO: Move this function up
 def parse_input_argument():
     """Ֆունկցիան ստուգում է հրամանին ուղարկված արգումենտները"""
 
@@ -42,7 +43,9 @@ def parse_input_argument():
     return parser.argument
 
 
+# TODO: Rename function
 def check_the_size_number(number):
+    # TODO: Improve docstring and provide more generic information
     "ֆունկցիան ստուգում է իրեն փոխանցած արժեքի 7 ից մեծ լինելը"
 
     if number < 8:
@@ -58,6 +61,7 @@ def check_natural_number(argument):
                         "'{}'-ը չի համարվում բնական թիվ".format(argument))
 
 
+# TODO: Rename function
 def password_generator(length):
     """ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գախտանբառ,որի
     երկարությունը համապատասխանում է  այդ թվի չափին"""
@@ -65,9 +69,8 @@ def password_generator(length):
     check_natural_number(length)
     check_the_size_number(length)
     result = generator_random_simbols(length)
-    # TODO: the algorithm needs to be improved. Currently upper case, integers
-    # and punctuations max size is predictable.
 
+    # TODO: Use some shuffling function instead of random.sample
     return ''.join(random.sample(result,len(result)))
 
 
