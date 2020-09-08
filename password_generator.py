@@ -5,24 +5,31 @@
 երկարության գախտնաբառ
 """
 
-
+import numpy
 import random
 import argparse
 import string
 
+PUNCTUATION = string.punctuation
+LOWERS = string.ascii_lowercase
+UPPERS = string.ascii_uppercase
+INTS = string.digits
 
-def constrained_sum_sample_pos(quantity, total):
+
+def generator_random_simbols(total):
     """Ֆունկցիան վերադարձնում է quantity բնական թվի երկարության ցուցակ,
     որի անդամները պատահական թվեր են, և այդ թվերի գումարը հավասար է total ի"""
 
-    count_type_args = []
+    all_types = [PUNCTUATION, LOWERS, UPPERS, INTS]
 
-    dividers = sorted(random.sample(range(1, total), quantity - 1))
+    rand_simbols = [random.choice(PUNCTUATION), random.choice(LOWERS),\
+           random.choice(UPPERS), random.choice(INTS)]
 
-    for a, b in zip(dividers + [total], [0] + dividers):
-        count_type_args.append(a-b)
+    for _ in range(total - 4):
+        index = random.randint(0, 3)
+        rand_simbols.append(random.choice(all_types[index]))
 
-    return count_type_args
+    return rand_simbols
 
 
 def parse_input_argument():
@@ -57,22 +64,9 @@ def password_generator(length):
 
     check_natural_number(length)
     check_the_size_number(length)
-
-    punctuation = string.punctuation
-    lowers = string.ascii_lowercase
-    uppers = string.ascii_uppercase
-    ints = string.digits
-
-    div_length = constrained_sum_sample_pos(4, length)
-
+    result = generator_random_simbols(length)
     # TODO: the algorithm needs to be improved. Currently upper case, integers
     # and punctuations max size is predictable.
-    r_low = ''.join(random.choice(uppers) for i in range(div_length[0]))
-    r_upp = ''.join(random.choice(lowers) for i in range(div_length[1]))
-    r_int = ''.join(random.choice(ints) for i in range(div_length[2]))
-    r_punt =''.join(random.choice(punctuation) for i in range(div_length[3]))
-
-    result = r_low + r_upp + r_int + r_punt
 
     return ''.join(random.sample(result,len(result)))
 
