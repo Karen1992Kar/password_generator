@@ -34,6 +34,15 @@ def counter_of_identical_symbols(string1, string2):
     return len(result)
 
 
+def probability_character_in_password(argument):
+    """Ֆունկցիան ստուգում է իրեն փոխանցած արգումենտի 19 ից մեծ 31 ից փոքր
+    լինելը"""
+
+    if 30 >= argument >= 20:
+        return True
+    return False
+
+
 @pytest.mark.parametrize("num", [1, 4, 7])
 def test_argument_greater_than_seven(num):
     """Ֆունկցիան ստուգում է password մոդուլը 8 ից փոքր բնական թվերի համար"""
@@ -97,8 +106,6 @@ def test_for_len_arguments(number):
            "թիվը պետք է հավասար լիներ գաղտնաբառի երկարությանը"
 
 
-
-
 @pytest.mark.parametrize("symbols", [LOWERS, UPPERS, INTEGERS, SPEC_SYMBOLS])
 def test_for_check_random_password(symbols):
     """Ֆունկցիան ստուգում է գաղտնաբառի random լինելը"""
@@ -113,8 +120,8 @@ def test_for_check_random_password(symbols):
         password = generate_password(length_password)
         symbol_count += counter_of_identical_symbols(symbols, password)
 
-    symbol_procent = interest_calculator(symbol_count, number_of_cycles,
+    symbol_percent = interest_calculator(symbol_count, number_of_cycles,
                                          length_password)
-    assert symbol_procent > 20 or symbol_procent < 30, "Փոքրատառերի քանակը "\
-           "պետք է կազմեր ընդհանուր սիմվոլների քանակի 20 ից 30 տոկոսը, բայց "\
-           "կազմեց {} տոկոս".format(symbol_procent)
+    assert probability_character_in_password(symbol_percent), "Փոքրատառերի "\
+           "քանակը պետք է կազմեր ընդհանուր սիմվոլների քանակի 0.2 ից 0.3 մասը,"\
+           " բայց կազմեց {} մասը".format("%.2f" % round(symbol_percent/100, 2))
