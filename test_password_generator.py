@@ -34,18 +34,25 @@ def counter_of_identical_symbols(string1, string2):
     return len(result)
 
 
-def probability_character_in_password(argument):
-    """Ֆունկցիան ստուգում է իրեն փոխանցած արգումենտի 19 ից մեծ 31 ից փոքր
-    լինելը"""
+# TODO: improve function,
+# 1. rename function to a more generic name
+# 2. add tolerance and expected_percent arguments
+# 2.1 tolerance is maximal allowed shift of expected_percent.
+# E.g. expected_percent = 25%, tolerance = 5%, appliable values are between
+# 25-5 and 25+5 percents.
+def probability_character_in_password(number):
+    """Ֆունկցիան ստուգում է իրեն փոխանցած թվի 19 ից և մեծ 31 ից փոքր լինելը"""
 
-    if 30 >= argument >= 20:
+    if 30 >= number >= 20:
         return True
     return False
 
 
 @pytest.mark.parametrize("num", [1, 4, 7])
+# TODO: improve function
 def test_argument_greater_than_seven(num):
-    """Ֆունկցիան ստուգում է password մոդուլը 8 ից փոքր բնական թվերի համար"""
+    """Ֆունկցիան ստուգում է password_generator մոդուլը 8 ից փոքր
+    բնական թվերի համար"""
 
     try:
         generate_password(num)
@@ -57,6 +64,7 @@ def test_argument_greater_than_seven(num):
                     "աշխատեց նորմալ".format(num))
 
 
+# TODO: improve argument name
 @pytest.mark.parametrize('len_password', [8, 9, 35, 36])
 def test_str_in_password(len_password):
     """Ֆունկցիան ստուգում է գախտնաբառի մեջ հատուկ սիմվոլների, թվերի, " \
@@ -98,6 +106,7 @@ def test_for_string_argument(argument):
 
 
 @pytest.mark.parametrize("number", [15, 45, 59])
+# TODO: rename function
 def test_for_len_arguments(number):
     """Ֆունկցիան ստուգում է password_generator մոդուլին փոխանցած թվի և հետ
     վերադարձրած գաղտնաբառի երկարության հավասար լինելը"""
@@ -110,18 +119,16 @@ def test_for_len_arguments(number):
 def test_for_check_random_password(symbols):
     """Ֆունկցիան ստուգում է գաղտնաբառի random լինելը"""
 
-    symbol_count = 0
-
-    number_of_cycles = 100
-    length_password = 12
+    # TODO: rename 'length_password' variable
+    symbol_count, number_of_cycles, length_password = 0, 100, 12
 
     for _ in range(number_of_cycles):
-
         password = generate_password(length_password)
         symbol_count += counter_of_identical_symbols(symbols, password)
 
     symbol_percent = interest_calculator(symbol_count, number_of_cycles,
                                          length_password)
+    # TODO: do reporting in percents
     assert probability_character_in_password(symbol_percent), "Փոքրատառերի "\
            "քանակը պետք է կազմեր ընդհանուր սիմվոլների քանակի 0.2 ից 0.3 մասը,"\
            " բայց կազմեց {} մասը".format("%.2f" % round(symbol_percent/100, 2))
