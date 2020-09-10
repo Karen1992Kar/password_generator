@@ -15,7 +15,7 @@ LOWERS = string.ascii_lowercase
 UPPERS = string.ascii_uppercase
 INTEGERS = string.digits
 
-PASSWORD_MIN_LENGTH = 8
+MIN_PASSWORD_LENGTH = 8
 
 
 def parse_input_argument():
@@ -40,9 +40,9 @@ def check_natural_number(argument):
 def check_min_password_length(number):
     """Գաղտնաբառի մինիմալ երկարության ստուգում"""
 
-    if number < PASSWORD_MIN_LENGTH:
+    if number < MIN_PASSWORD_LENGTH:
         raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի {} "
-                         "ից".format(PASSWORD_MIN_LENGTH))
+                         "ից".format(MIN_PASSWORD_LENGTH))
 
 
 def generate_random_symbols(total):
@@ -73,5 +73,5 @@ def generate_password(length):
 
 
 if __name__ == "__main__":
-    num = parse_input_argument()
-    print(generate_password(num))
+    passwoerd_length_from_terminal = parse_input_argument()
+    print(generate_password(passwoerd_length_from_terminal))
