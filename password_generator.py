@@ -9,6 +9,7 @@ import random
 import argparse
 import string
 
+# TODO: Try not to use abbreviations
 SPEC_SYMBOLS = string.punctuation
 LOWERS = string.ascii_lowercase
 UPPERS = string.ascii_uppercase
@@ -36,13 +37,10 @@ def check_natural_number(argument):
                         "'{}'-ը չի համարվում բնական թիվ".format(argument))
 
 
-# TODO: Rename function
 def check_min_password_length(number):
-    # TODO: Improve docstring and provide more generic information
     """Գաղտնաբառի մինիմալ երկարության ստուգում"""
 
     if number < PASSWORD_MIN_LENGTH:
-
         raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի {} "
                          "ից".format(PASSWORD_MIN_LENGTH))
 
@@ -53,7 +51,6 @@ def generate_random_symbols(total):
 
     all_types = [SPEC_SYMBOLS, LOWERS, UPPERS, INTEGERS]
 
-    # TODO: Correct typos in 'simbol'
     rand_symbols = [random.choice(SPEC_SYMBOLS), random.choice(LOWERS),
                     random.choice(UPPERS), random.choice(INTEGERS)]
 
@@ -65,16 +62,13 @@ def generate_random_symbols(total):
     return ''.join(rand_symbols)
 
 
-# TODO: Rename function
 def generate_password(length):
     """Ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գախտանբառ,որի
     երկարությունը համապատասխանում է  այդ թվի չափին"""
 
     check_natural_number(length)
     check_min_password_length(length)
-    # TODO: Renamne 'result' variable
     password = generate_random_symbols(length)
-    # TODO: Move suffle to the function above
     return password
 
 
