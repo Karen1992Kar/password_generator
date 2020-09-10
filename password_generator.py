@@ -14,7 +14,7 @@ LOWERS = string.ascii_lowercase
 UPPERS = string.ascii_uppercase
 INTEGERS = string.digits
 
-MIN_LENGTH_PASSWORD = 8
+PASSWORD_MIN_LENGTH = 8
 
 
 def parse_input_argument():
@@ -41,10 +41,10 @@ def check_min_password_length(number):
     # TODO: Improve docstring and provide more generic information
     """Գաղտնաբառի մինիմալ երկարության ստուգում"""
 
-    if number <= MIN_LENGTH_PASSWORD:
+    if number < PASSWORD_MIN_LENGTH:
 
         raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի {} "
-                         "ից".format(MIN_LENGTH_PASSWORD))
+                         "ից".format(PASSWORD_MIN_LENGTH))
 
 
 def generate_random_symbols(total):

@@ -6,7 +6,7 @@
 import random
 import string
 import pytest
-from password_generator import generate_password, MIN_LENGTH_PASSWORD
+from password_generator import generate_password, PASSWORD_MIN_LENGTH
 
 
 LOWERS = string.ascii_lowercase
@@ -15,11 +15,11 @@ SPEC_SYMBOLS = string.punctuation
 INTEGERS = string.digits
 
 
-def interest_calculator(count_type, number_of_cycles, length_password):
+def interest_calculator(type_count, number_of_cycles, password_length):
     """Ֆունկցիան վերադարձնում է առանձին սիմվոլների քանակը գաղտնաբառի մեջ
     ըստ տոկոսների """
 
-    return (count_type * 100)/(number_of_cycles*length_password)
+    return int((type_count * 100)/(number_of_cycles*password_length)*100)/100
 
 
 def counter_of_identical_symbols(string1, string2):
@@ -40,37 +40,38 @@ def counter_of_identical_symbols(string1, string2):
 # 2.1 tolerance is maximal allowed shift of expected_percent.
 # E.g. expected_percent = 25%, tolerance = 5%, appliable values are between
 # 25-5 and 25+5 percents.
-def probability_character_in_password(number, expected_percent=25, tolerance=5):
+def number_in_range(number, expected_percent=25, tolerance=5):
     """Ֆունկցիան վերադարձնում է True, եթե փոխանցած թիվը մեծ է
     expected_percent - tolerance ից և փոքր է expected_percent + tolerance  ից,
     հակառակ դեպքում False"""
 
-    if expected_percent - tolerance <= number <= expected_percent + tolerance:
+    if (expected_percent - tolerance) <= number <= (expected_percent +
+                                                    tolerance):
         return True
     return False
 
 
-@pytest.mark.parametrize("num", random.sample(list(range(1,
-                         MIN_LENGTH_PASSWORD+1)), k=3))
+@pytest.mark.parametrize("number", random.sample(list(range(1,
+                         PASSWORD_MIN_LENGTH)), k=3))
 # TODO: improve function1
-def test_minimum_password_length(num):
+def test_for_password_minimum_length(number):
     """Ֆունկցիան ստուգում է password_generator մոդուլը մինիմալ երկարությունից
     փոքր երկարություններ ունեցող գաղտնաբառերի դեպքում"""
 
     try:
-        generate_password(num)
-    except ValueError as desc_name:
-        assert str(desc_name) == "ֆունկցիաին փոխանցած թիվը պետք է " \
-                                 "մեծ լինի {} ից".format(MIN_LENGTH_PASSWORD)
+        generate_password(number)
+    except ValueError as error_desc:
+        assert str(error_desc) == "ֆունկցիաին փոխանցած թիվը պետք է " \
+                                  "մեծ լինի {} ից".format(PASSWORD_MIN_LENGTH)
     else:
         pytest.fail("Սպասվում էր ValueError {} թվի համար, բայց ֆունկցիան "
-                    "աշխատեց նորմալ".format(num))
+                    "աշխատեց նորմալ".format(number))
 
 
 # TODO: improve argument name1
 @pytest.mark.parametrize('password_length', random.sample(list(range(
-                         MIN_LENGTH_PASSWORD, 100)), k=4))
-def test_str_in_password(password_length):
+                         PASSWORD_MIN_LENGTH, 100)), k=4))
+def test_for_all_types_symbols_in_password(password_length):
     """Ֆունկցիան ստուգում է գախտնաբառի մեջ հատուկ սիմվոլների, թվերի,
     մեծատառերի և փոքրատառերի առկայուտյունը """
 
@@ -94,25 +95,25 @@ def test_str_in_password(password_length):
 
 
 @pytest.mark.parametrize("argument", ["string", "16", 7.3, True])
-def test_for_string_argument(argument):
+def test_for_not_natural_number(argument):
     """Ֆունկցիան ստուգում է password_generator մոդուլի աշխատանքը ոչ
     բնական թվերի դեպքում"""
 
     try:
         generate_password(argument)
-    except TypeError as desc_name:
-        assert str(desc_name) == "Ֆունկցիան աշխատում է բնական թվի համար. "\
+    except TypeError as error_desc:
+        assert str(error_desc) == "Ֆունկցիան աշխատում է բնական թվի համար. "\
                "'{}'-ը չի համարվում բնական թիվ".format(argument)
     else:
         pytest.fail("ֆունկցիան պետք է կանչեր TypeError <<{}>> արգումենտի "
-                    "համար, քանի որ այն աշխատում է 7 ից մեծ բնական թվերի "
-                    "համար".format(argument))
+                    "համար, քանի որ այն աշխատում է {} ից մեծ բնական թվերի "
+                    "համար".format(argument, PASSWORD_MIN_LENGTH))
 
 
 @pytest.mark.parametrize("number", random.sample(list(range(
-                         MIN_LENGTH_PASSWORD, 40)), k=4))
+                         PASSWORD_MIN_LENGTH, 40)), k=4))
 # TODO: rename function1
-def test_for_arguments_length(number):
+def test_for_equality_number_and_password_length(number):
     """Ֆունկցիան ստուգում է password_generator մոդուլին փոխանցած թվի և հետ
     վերադարձրած գաղտնաբառի երկարության հավասար լինելը"""
 
@@ -121,10 +122,10 @@ def test_for_arguments_length(number):
 
 
 @pytest.mark.parametrize("symbols", [LOWERS, UPPERS, INTEGERS, SPEC_SYMBOLS])
-def test_for_check_random_password(symbols):
+def test_for_check_randomness_password(symbols):
     """Ֆունկցիան ստուգում է գաղտնաբառի պատահական լինելը"""
 
-    # TODO: rename 'length_password' variable1
+    # TODO: rename 'password_length' variable1
     symbol_count = 0
     number_of_cycles = 100
     password_length = 12
@@ -135,7 +136,7 @@ def test_for_check_random_password(symbols):
 
     symbol_percent = interest_calculator(symbol_count, number_of_cycles,
                                          password_length)
-    # TODO: do reporting in percents?
-    assert probability_character_in_password(symbol_percent), "Փոքրատառերի "\
+    # TODO: do reporting in percents
+    assert number_in_range(symbol_percent), "Փոքրատառերի "\
            "քանակը պետք է կազմեր ընդհանուր սիմվոլների քանակի 25% ից 30% ը "\
-           "բայց կազմեց {}%".format(symbol_percent)
+           "բայց կազմեց {0:.2f}%".format(symbol_percent)
