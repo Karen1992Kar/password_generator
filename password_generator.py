@@ -37,11 +37,11 @@ def check_natural_number(argument):
 
 
 # TODO: Rename function
-def check_min_length_password(number):
+def check_min_password_length(number):
     # TODO: Improve docstring and provide more generic information
     """Գաղտնաբառի մինիմալ երկարության ստուգում"""
 
-    if number < MIN_LENGTH_PASSWORD:
+    if number <= MIN_LENGTH_PASSWORD:
 
         raise ValueError("ֆունկցիաին փոխանցած թիվը պետք է մեծ լինի {} "
                          "ից".format(MIN_LENGTH_PASSWORD))
@@ -54,15 +54,15 @@ def generate_random_symbols(total):
     all_types = [SPEC_SYMBOLS, LOWERS, UPPERS, INTEGERS]
 
     # TODO: Correct typos in 'simbol'
-    rand_simbols = [random.choice(SPEC_SYMBOLS), random.choice(LOWERS),
+    rand_symbols = [random.choice(SPEC_SYMBOLS), random.choice(LOWERS),
                     random.choice(UPPERS), random.choice(INTEGERS)]
 
     for _ in range(total - 4):
         index = random.randint(0, 3)
-        rand_simbols.append(random.choice(all_types[index]))
+        rand_symbols.append(random.choice(all_types[index]))
 
-    random.shuffle(rand_simbols)
-    return ''.join(rand_simbols)
+    random.shuffle(rand_symbols)
+    return ''.join(rand_symbols)
 
 
 # TODO: Rename function
@@ -71,7 +71,7 @@ def generate_password(length):
     երկարությունը համապատասխանում է  այդ թվի չափին"""
 
     check_natural_number(length)
-    check_min_length_password(length)
+    check_min_password_length(length)
     # TODO: Renamne 'result' variable
     password = generate_random_symbols(length)
     # TODO: Move suffle to the function above
