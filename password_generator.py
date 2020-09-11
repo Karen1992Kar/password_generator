@@ -9,8 +9,7 @@ import random
 import argparse
 import string
 
-# TODO: Try not to use abbreviations
-SPEC_SYMBOLS = string.punctuation
+SPECIAL_SYMBOLS = string.punctuation
 LOWERS = string.ascii_lowercase
 UPPERS = string.ascii_uppercase
 INTEGERS = string.digits
@@ -49,21 +48,21 @@ def generate_random_symbols(total):
     """Ֆունկցիան վերցնում է բնական թիվ և այդ թվին համապատասխան երկարության հետ
     վերադարձնում random սիմվոլներ"""
 
-    all_types = [SPEC_SYMBOLS, LOWERS, UPPERS, INTEGERS]
+    all_types = [SPECIAL_SYMBOLS, LOWERS, UPPERS, INTEGERS]
 
-    rand_symbols = [random.choice(SPEC_SYMBOLS), random.choice(LOWERS),
-                    random.choice(UPPERS), random.choice(INTEGERS)]
+    random_symbols = [random.choice(SPECIAL_SYMBOLS), random.choice(LOWERS),
+                      random.choice(UPPERS), random.choice(INTEGERS)]
 
     for _ in range(total - 4):
         index = random.randint(0, 3)
-        rand_symbols.append(random.choice(all_types[index]))
+        random_symbols.append(random.choice(all_types[index]))
 
-    random.shuffle(rand_symbols)
-    return ''.join(rand_symbols)
+    random.shuffle(random_symbols)
+    return ''.join(random_symbols)
 
 
 def generate_password(length):
-    """Ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գախտանբառ,որի
+    """Ֆունկցիան ստանում է բնական թիվ, հետ է վերադարձնում գաղտանբառ,որի
     երկարությունը համապատասխանում է  այդ թվի չափին"""
 
     check_natural_number(length)
